@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  # MongoDB Database
+  mongo:
+    image: mongo:6.0
+    container_name: thomas-db
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - lemba_net
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: tom
+      MONGO_INITDB_ROOT_PASSWORD: 1vh9Mdryh9KvkH7W
+    ports:
+      - "27017:27017"
+
+  # Backend Service
+  thomas-yolo-backend:
+    build: ./backend
+    container_name: thomas-yolo-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URL=mongodb://tom:1vh9Mdryh9KvkH7W@mongo:27017/
+    depends_on:
+      - mongo
+    networks:
+      - lemba_net
+
+  # Frontend Service
+  thomas-yolo-client:
+    build: ./client
+    container_name: thomas-yolo-client
+    ports:
+      - "3000:80"
+    depends_on: 
+      - thomas-yolo-backend
+    networks:
+      - lemba_net
+
+# Persistent MongoDB Volume
+volumes:
+  mongo_data:
+
+# Shared Network
+networks:
+  lemba_net:
+    driver: bridge
