@@ -24,7 +24,7 @@ FROM nginx:alpine AS prod
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy build output from previous Stage
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
 WORKDIR /usr/src/app
 
