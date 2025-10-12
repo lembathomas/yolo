@@ -18,7 +18,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: thomas/thomas-yolo-backend:v1.0.0
+    image: lembadev/thomas-yolo-backend:v1.0.0
     container_name: thomas-yolo-backend
     depends_on:
       - mongo
@@ -36,7 +36,7 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    image: thomas/thomas-yolo-client:v1.0.0
+    image: lembadev/thomas-yolo-client:v1.0.0
     container_name: thomas-yolo-client
     depends_on:
       - thomas-yolo-backend

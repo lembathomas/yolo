@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install Dependancies
-RUN npm install
+RUN npm install --no-package-lock
 
 # Copy the Source
 COPY . .
