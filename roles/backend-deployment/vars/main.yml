@@ -1,4 +1,4 @@
 ---
-container_name: brian-yolo-backend
-network: app-net
-volume: app-mongo-data/app
+container_name: thomas-yolo-backend
+network: lemba_net
+volume: mongo_data:
