@@ -1,4 +1,4 @@
-  Vagrant.configure("2") do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.hostname = "yolo-centos"
 
@@ -18,4 +18,4 @@
     ansible.inventory_path = "inventory.yml"
   end
 end
-end
+
