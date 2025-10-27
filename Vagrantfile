@@ -1,8 +1,7 @@
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
-  config.vm.hostname = "yolo-centos"
+  config.vm.box = "generic/centos7"
+  config.vm.hostname = "yolo-centos7"
 
-  # Port forwarding
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "forwarded_port", guest: 5000, host: 5000
   config.vm.network "forwarded_port", guest: 27017, host: 27017
@@ -12,10 +11,9 @@ Vagrant.configure("2") do |config|
     vb.cpus = 2
   end
 
-  # Use Ansible for provisioning
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "playbook.yml"
-    ansible.inventory_path = "inventory.yml"
+    ansible.playbook = "playbook.yaml"
+    ansible.inventory_path = "inventory.yaml"
   end
 end
 

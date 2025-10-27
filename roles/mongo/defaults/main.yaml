@@ -1,7 +1,0 @@
-mongo_image: mongo:6.0
-mongo_container_name: thomas-db
-mongo_port: "8000:27017"
-mongo_data_dir: /var/lib/mongo_data
-mongo_network: backend_net
-mongo_root_username: tom
-mongo_root_password: 1vh9Mdryh9KvkH7W

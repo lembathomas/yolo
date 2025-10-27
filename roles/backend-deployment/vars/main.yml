@@ -1,4 +1,0 @@
----
-container_name: thomas-yolo-backend
-network: lemba_net
-volume: mongo_data:

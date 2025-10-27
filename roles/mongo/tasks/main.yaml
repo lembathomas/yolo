@@ -1,16 +1,22 @@
-- name: Run MongoDB container
+---
+- name: Install Docker
+  yum:
+    name: docker
+    state: present
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Deploy MongoDB container
   community.docker.docker_container:
     name: mongo
-    image: mongo:6.0
-    state: started
+    image: mongo:6
     restart_policy: always
-    ports:
-      - "8000:27017"
-    volumes:
-      - mongo_data:/data/db
-    environment:
+    env:
       MONGO_INITDB_ROOT_USERNAME: tom
       MONGO_INITDB_ROOT_PASSWORD: 1vh9Mdryh9KvkH7W
-
-
-  
+    ports:
+      - "27017:27017"

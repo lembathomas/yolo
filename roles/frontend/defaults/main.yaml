@@ -1,7 +1,0 @@
-frontend_image: lembadev/thomas-yolo-client:v1.0.0
-frontend_container_name: thomas-yolo-client
-frontend_network: lemba_net
-frontend_port: "3000:80"
-frontend_build_context: /vagrant/client
-frontend_dockerfile: Dockerfile
-backend_container_name: thomas-yolo-backend

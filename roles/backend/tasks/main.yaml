@@ -1,39 +1,32 @@
 ---
-- name: Ensure Docker SDK for Python is installed
-  ansible.builtin.pip:
-    name: docker
+- name: Ensure Git is installed
+  yum:
+    name: git
     state: present
 
-- name: Create Docker networks if not present
-  community.docker.docker_network:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - lemba_net
-    - backend_net
+- name: Clone YOLO repo from GitHub
+  git:
+    repo: "https://github.com/lembathomas/yolo.git"
+    dest: /opt/yolo
+    version: main
+    force: yes
 
 - name: Build backend Docker image
   community.docker.docker_image:
-    name: lembadev/thomas-yolo-backend:v1.0.0
     build:
-      path: /vagrant/backend   
-      dockerfile: Dockerfile
-    source: build
-    state: present
+      path: /opt/yolo/backend
+    name: lembadev/thomas-yolo-backend
+    tag: v1.0.0
 
 - name: Run backend container
   community.docker.docker_container:
     name: thomas-yolo-backend
     image: lembadev/thomas-yolo-backend:v1.0.0
-    state: started
     restart_policy: always
-    networks:
-      - name: lemba_net
-      - name: backend_net
+    depends_on:
+      - mongo
     env:
       NODE_ENV: production
       MONGODB_URI: "mongodb://tom:1vh9Mdryh9KvkH7W@mongo:27017/yolomy?authSource=admin"
     ports:
       - "5000:5000"
-    depends_on:
-      - mongo

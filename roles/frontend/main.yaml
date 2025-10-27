@@ -1,39 +1,17 @@
 ---
-- name: Ensure Docker SDK for Python is installed
-  ansible.builtin.pip:
-    name: docker
-    state: present
-
-- name: Ensure frontend network exists
-  community.docker.docker_network:
-    name: "{{ frontend_network }}"
-    state: present
-
-- name: Wait for backend container to be ready
-  community.docker.docker_container_info:
-    name: "{{ backend_container_name }}"
-  register: backend_status
-  until: backend_status.container is defined and backend_status.container.State.Running
-  retries: 10
-  delay: 5
-
 - name: Build frontend Docker image
   community.docker.docker_image:
-    name: "{{ frontend_image }}"
     build:
-      path: "{{ frontend_build_context }}"
-      dockerfile: "{{ frontend_dockerfile }}"
-    source: build
+      path: /opt/yolo/client
+    name: lembadev/thomas-yolo-client
+    tag: v1.0.0
 
-- name: Deploy frontend container
+- name: Run frontend container
   community.docker.docker_container:
-    name: "{{ frontend_container_name }}"
-    image: "{{ frontend_image }}"
-    state: started
-    restart_policy: unless-stopped
-    ports:
-      - "{{ frontend_port }}"
-    networks:
-      - name: "{{ frontend_network }}"
+    name: thomas-yolo-client
+    image: lembadev/thomas-yolo-client:v1.0.0
+    restart_policy: always
     depends_on:
-      - "{{ backend_container_name }}"
+      - thomas-yolo-backend
+    ports:
+      - "3000:80"
