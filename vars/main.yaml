@@ -1,0 +1,16 @@
+# Mongo configuration
+mongo_image: "mongo:6.0"
+mongo_container_name: "thomas-db"
+mongo_port: 8000
+mongo_root_user: "tom"
+mongo_root_password: "1vh9Mdryh9KvkH7W"
+
+# Backend configuration
+backend_image: "lembadev/thomas-yolo-backend:v1.0.0"
+backend_container_name: "thomas-yolo-backend"
+backend_port: 5000
+
+#Client configuration
+client_image: "lembadev/thomas-yolo-client:v1.0.0"
+client_container_name: "thomas-yolo-client"
+client_port: 3000

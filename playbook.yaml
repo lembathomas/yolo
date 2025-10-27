@@ -1,37 +1,8 @@
-- name: Prepare CentOS 7 for Ansible
-  hosts: all
-  become: yes
-
-  tasks:
-    - name: Fix CentOS 7 yum repo to use vault
-      copy:
-        dest: /etc/yum.repos.d/CentOS-Base.repo
-        content: |
-          [base]
-          name=CentOS-7 - Base
-          baseurl=http://vault.centos.org/7.9.2009/os/$basearch/
-          gpgcheck=1
-          gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-          enabled=1
-
-          [updates]
-          name=CentOS-7 - Updates
-          baseurl=http://vault.centos.org/7.9.2009/updates/$basearch/
-          gpgcheck=1
-          gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-          enabled=1
-
-          [extras]
-          name=CentOS-7 - Extras
-          baseurl=http://vault.centos.org/7.9.2009/extras/$basearch/
-          gpgcheck=1
-          gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-          enabled=1
-
-    - name: Clean and update yum cache
-      command: yum clean all && yum makecache
-
-    - name: Install Python 3 for Ansible
-      yum:
-        name: python3
-        state: present
+- hosts: default
+  become: true
+  vars_files:
+    - vars/main.yaml
+  roles:
+    - mongo
+    - backend
+    - client   

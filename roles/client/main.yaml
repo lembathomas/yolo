@@ -1,0 +1,24 @@
+- name: Pull Client image from Docker Hub
+  community.docker.docker_image:
+    name: "{{ client_image }}"
+    source: pull
+  become: true
+
+- name: Run Client container
+  community.docker.docker_container:
+    name: "{{ client_container_name }}"
+    image: "{{ client_image }}"
+    state: started
+    restart_policy: unless-stopped
+    published_ports:
+      - "{{ client_port }}:80"
+    env:
+      NODE_ENV: production
+  become: true
+
+- name: Wait for client to be up
+  ansible.builtin.wait_for:
+    host: localhost
+    port: "{{ client_port }}"
+    delay: 5
+    timeout: 120

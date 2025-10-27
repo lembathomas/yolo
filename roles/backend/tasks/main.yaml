@@ -1,32 +1,23 @@
----
-- name: Ensure Git is installed
-  yum:
-    name: git
-    state: present
-
-- name: Clone YOLO repo from GitHub
-  git:
-    repo: "https://github.com/lembathomas/yolo.git"
-    dest: /opt/yolo
-    version: main
-    force: yes
-
-- name: Build backend Docker image
+- name: Pull Backend image from Docker Hub
   community.docker.docker_image:
-    build:
-      path: /opt/yolo/backend
-    name: lembadev/thomas-yolo-backend
-    tag: v1.0.0
+    name: "{{ backend_image }}"
+    source: pull
 
-- name: Run backend container
+- name: Run Backend container
   community.docker.docker_container:
-    name: thomas-yolo-backend
-    image: lembadev/thomas-yolo-backend:v1.0.0
-    restart_policy: always
-    depends_on:
-      - mongo
+    name: "{{ backend_container_name }}"
+    image: "{{ backend_image }}"
+    state: started
+    restart_policy: unless-stopped
+    published_ports:
+      - "{{ backend_port }}:5000"
     env:
       NODE_ENV: production
-      MONGODB_URI: "mongodb://tom:1vh9Mdryh9KvkH7W@mongo:27017/yolomy?authSource=admin"
-    ports:
-      - "5000:5000"
+      MONGODB_URI: "mongodb://{{ mongo_root_user }}:{{ mongo_root_password }}@{{ mongo_container_name }}:27017/yolomy?authSource=admin"
+
+- name: Wait for backend to be up
+  ansible.builtin.wait_for:
+    host: localhost
+    port: "{{ backend_port }}"
+    delay: 5
+    timeout: 120
