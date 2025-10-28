@@ -1,6 +1,6 @@
-Containerized Full-Stack E-Commerce Application
+# Containerized Full-Stack E-Commerce Application
 
-Overview
+# Overview
 
 This project is a containerized full-stack e-commerce application built with React (frontend), Node.js/Express (backend), and MongoDB (database).
 
