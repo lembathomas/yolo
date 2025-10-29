@@ -1,6 +1,6 @@
-Containerized Full-Stack E-Commerce Application
+# Containerized Full-Stack E-Commerce Application
 
-Overview
+# Overview
 
 This project is a containerized full-stack e-commerce application built with React (frontend), Node.js/Express (backend), and MongoDB (database).
 
@@ -12,7 +12,7 @@ Container networking
 
 Persistent data storage
 
-Project Structure
+# Project Structure
 
 ├── backend/
 │   ├── Dockerfile
@@ -39,7 +39,7 @@ docker-compose.yml – Defines and manages all services
 
 Prerequisites
 
-Before you begin, ensure you have the following installed:
+# Before you begin, ensure you have the following installed:
 
 Docker
 
