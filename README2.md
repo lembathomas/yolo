@@ -14,20 +14,21 @@ The goal is to automate provisioning, container deployment, and service orchestr
 
 ## Project Structure
 
-``` bash
+
 playbook/
-├── playbook.yaml # Main Ansible playbook
-├── inventory # Hosts inventory
+├── playbook.yaml        # Main Ansible playbook
+├── inventory            # Hosts inventory
 ├── vars/
-│ └── main.yaml # Global variables
+│   └── main.yaml        # Global variables
 ├── roles/
-│ ├── mongo/
-│ │ └── tasks/main.yaml
-│ ├── backend/
-│ │ └── tasks/main.yaml
-│ └── client/
-│ └── tasks/main.yaml
-└── Vagrantfile  ``` # Vagrant configuration for Ubuntu VM
+│   ├── mongo/
+│   │   └── tasks/main.yaml
+│   ├── backend/
+│   │   └── tasks/main.yaml
+│   └── client/
+│       └── tasks/main.yaml
+└── Vagrantfile          # Vagrant configuration for Ubuntu VM
+
 
 
 ## Prerequisites
