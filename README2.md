@@ -103,3 +103,7 @@ This allows easy modification without editing roles or playbooks.
  All Docker tasks use become: true to avoid permission issues.
  Roles are modular and can be run independently.
  MongoDB volume ensures persistent storage for testing added products.
+
+ # Screen Shots
+
+![alt text](<Screenshot from 2025-10-29 15-29-13.png>)
