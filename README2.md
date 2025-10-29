@@ -46,71 +46,58 @@ git clone <repository-url>
 cd <repository-folder>
 Start the Vagrant VM:
 
-bash
 Copy code
 vagrant up
 This provisions the VM and runs the Ansible playbook automatically.
 
-Verify containers:
+# Verify containers:
 
-SSH into the VM:
-
-bash
-Copy code
+# SSH into the VM:
 vagrant ssh
 docker ps
-You should see:
+
+# You should see:
 
 MongoDB container
-
 Backend container
-
 Client container
 
-Access the application:
+# Accessing the application:
 
 Backend API: http://localhost:5000
 
 Frontend client: http://localhost:3000
 
-Variables
+# Variables
 All service configuration is stored in vars/main.yaml:
 
 Docker image names
 
 Container names
 
-Ports
+# Ports
 
 Environment variables for MongoDB
 
 This allows easy modification without editing roles or playbooks.
 
-Roles
-Mongo
-Installs Docker if missing.
+# Roles
+# A) Mongo
+  1) Installs Docker if missing.
+  2) Pulls MongoDB image from Docker Hub.
+  3) Starts MongoDB container with persistent data volume.
 
-Pulls MongoDB image from Docker Hub.
+# B) Backend
+  1)Pulls backend Node.js image from Docker Hub.
+  2)Starts the backend container.
+  3)Waits for the backend API to be ready.
 
-Starts MongoDB container with persistent data volume.
+# C) Client
+  1)Pulls frontend image from Docker Hub.
+  2)Starts the client container.
+  3)Waits for the client application to be ready.
 
-Backend
-Pulls backend Node.js image from Docker Hub.
-
-Starts the backend container.
-
-Waits for the backend API to be ready.
-
-Client
-Pulls frontend image from Docker Hub.
-
-Starts the client container.
-
-Waits for the client application to be ready.
-
-Notes
-All Docker tasks use become: true to avoid permission issues.
-
-Roles are modular and can be run independently.
-
-MongoDB volume ensures persistent storage for testing added products.
+# Notes
+ All Docker tasks use become: true to avoid permission issues.
+ Roles are modular and can be run independently.
+ MongoDB volume ensures persistent storage for testing added products.
