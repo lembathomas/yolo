@@ -28,10 +28,6 @@ playbook/
 │ └── tasks/main.yaml
 └── Vagrantfile # Vagrant configuration for Ubuntu VM
 
-yaml
-Copy code
-
----
 
 ## Prerequisites
 
