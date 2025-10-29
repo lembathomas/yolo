@@ -14,3 +14,4 @@ backend_port: 5000
 client_image: "lembadev/thomas-yolo-client:v1.0.0"
 client_container_name: "thomas-yolo-client"
 client_port: 3000
+
