@@ -3,14 +3,19 @@
 This project deploys a full-stack application consisting of a frontend, backend, and MongoDB database on Kubernetes.
  The setup demonstrates containerized microservices running in a scalable and resilient cluster environment.
 
-# Project Structure
-manifests/
-├── backend-deployment.yaml
-├── backend-service.yaml
-├── frontend-deployment.yaml
-├── frontend-service.yaml
-├── mongo-statefulset.yaml
-└── mongo-service.yaml
+# Project Structurec
+```
+├── Explanation.md
+├── README.md
+├── manifests/
+│ ├── backend-deployment.yaml
+│ ├── backend-service.yaml
+│ ├── frontend-deployment.yaml
+│ ├── frontend-service.yaml
+│ ├── mongo-statefulset.yaml
+│ ├── mongo-service.yaml
+│ └── namespace.yaml
+```
 
 
 Each manifest defines the Kubernetes resources required to deploy and expose the application components within the cluster.
