@@ -1,19 +1,8 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongo
-spec:
-  ports:
-    - port: 27017
-  clusterIP: None
-  selector:
-    app: mongo
-
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mongo
+  namespace: yolomy
 spec:
   serviceName: mongo
   replicas: 1
@@ -26,23 +15,22 @@ spec:
         app: mongo
     spec:
       containers:
-      - name: mongo
-        image: mongo:6.0
-        env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            value: "tom"
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            value: "1vh9Mdryh9KvkH7W"
-        ports:
-          - containerPort: 27017
-        volumeMounts:
-          - name: mongo-data
-            mountPath: /data/db
+        - name: mongo
+          image: mongo:6.0
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "150m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
   volumeClaimTemplates:
-  - metadata:
-      name: mongo-data
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 1Gi
+    - metadata:
+        name: mongo-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

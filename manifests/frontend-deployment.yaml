@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-deployment
+  namespace: yolomy
 spec:
   replicas: 2
   selector:
@@ -13,7 +14,14 @@ spec:
         app: frontend-app
     spec:
       containers:
-      - name: client
-        image: lembadev/thomas-yolo-client:v1.0.0
-        ports:
-        - containerPort: 3000
+        - name: client
+          image: lembadev/thomas-yolo-client:v1.0.0
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
