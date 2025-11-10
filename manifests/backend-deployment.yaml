@@ -14,18 +14,17 @@ spec:
         app: backend-app
     spec:
       containers:
-      - name: backend
-        image: lembadev/thomas-yolo-backend
-        ports:
-        - containerPort: 5000
-        env:
-        - name: MONGO_URI
-          value: "mongodb://mongo-0.mongo.yolomy.svc.cluster.local:27017/thomas-db"
-
-      resources:
-        requests:
-          memory: "256Mi"
-          cpu: "250m"
-        limits:
-          memory: "512Mi"
-          cpu: "400m"
+        - name: backend
+          image: lembadev/thomas-yolo-backend:v1.0.0
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGO_URI
+              value: "mongodb://mongodb://mongo-0.mongo.yolomy.svc.cluster.local:27017/thomas-db"
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
