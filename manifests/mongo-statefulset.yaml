@@ -4,7 +4,7 @@ metadata:
   name: mongo
   namespace: yolomy
 spec:
-  serviceName: mongo
+  serviceName: "mongo"
   replicas: 1
   selector:
     matchLabels:
@@ -19,18 +19,22 @@ spec:
           image: mongo:6.0
           ports:
             - containerPort: 27017
+          volumeMounts:
+            - name: mongo-persistent-storage
+              mountPath: /data/db
           resources:
             requests:
-              memory: "256Mi"
-              cpu: "150m"
+              cpu: "100m"
+              memory: "128Mi"
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              cpu: "250m"
+              memory: "256Mi"
   volumeClaimTemplates:
     - metadata:
-        name: mongo-data
+        name: mongo-persistent-storage
       spec:
         accessModes: ["ReadWriteOnce"]
+        storageClassName: standard
         resources:
           requests:
             storage: 1Gi
